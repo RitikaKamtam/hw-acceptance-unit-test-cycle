@@ -1,4 +1,3 @@
-
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
     Movie.create movie
@@ -22,4 +21,9 @@ Then /I should see all the movies/ do
   Movie.all.each do |movie|
     step %{I should see "#{movie.title}"}
   end
+end
+
+Then /the director of "(.*)" should be "(.*)"/ do |movie_name, director|
+  movie = Movie.find_by(title: movie_name)
+  expect(movie.director). to eql(director)
 end
